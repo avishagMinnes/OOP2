@@ -1,3 +1,5 @@
+from User import User
+
 class SocialNetwork:
     _instances = {}
 
@@ -13,19 +15,16 @@ class SocialNetwork:
         self.users = {}
 
     def __str__(self):
-        return (f"{self.name} social network:\n{self.users.values().__str__()}")
-
-    # class SocialNetwork:
-   # def __init__(self, name):
-    #    self.name = name
-     #   self.users = {}
-      #  print("The social network " + self.name + " was created!")
+        network_info = f"{self.name} social network:\n"
+        for user in self.users.values():
+            network_info += str(user) + "\n"
+        return network_info
 
     def sign_up(self, username, password):
         if username in self.users:
             print("Username already exists.")
             return False
-        elif len(password) < 4 | len(password) > 8:
+        elif len(password) < 4 or len(password) > 8:
             print("Password not valid.")
             return False
         self.users[username] = User(username, password)
@@ -33,7 +32,7 @@ class SocialNetwork:
 
     def log_in(self, username, password):
         if username in self.users:
-            if (password == self.users[username].password()):
+            if (password == self.users[username].password):
                 print(username + " connected")
                 self.users[username].login()
                 return True
